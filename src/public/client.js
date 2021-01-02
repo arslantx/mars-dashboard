@@ -25,8 +25,8 @@ const selectRover = (selectedRover) => updateStore(store, {currentRover: selecte
 
 // create content
 const App = async (state) => {
-    const roverInfoContent = await getRoverInfoContent(state);
-    const imageContent = await getImageContent(state);
+    const roverInfoContent = await getRoverInfoContent(state, getRoverData);
+    const imageContent = await getImageContent(state, getImageData);
     return `
         <header>
             <h3>Mars Dashboard</h3>
@@ -58,8 +58,9 @@ const getTabMenuContent = (state) => {
 }
 
 // create rover info content
-const getRoverInfoContent = (state) => {
-    return getRoverData(state.get('currentRover')).then(resp => {
+// this is a High Order function taking in roverDataGetter function as argument
+const getRoverInfoContent = (state, roverDataGetter) => {
+    return roverDataGetter(state.get('currentRover')).then(resp => {
         return Object.entries(resp).map(([key, value]) => {
             let keyTitle;
             switch (key) {
@@ -101,8 +102,9 @@ const getRoverData = (rover) => {
 }
 
 // create image content
-const getImageContent = async (state) => {
-    return getImageData(state.get('currentRover')).then(resp => {
+// this is a High Order function taking in imageDataGetter function as argument
+const getImageContent = async (state, imageDataGetter) => {
+    return imageDataGetter(state.get('currentRover')).then(resp => {
         return resp.map(img => `
             <img src="${img}">
         `).join('');
