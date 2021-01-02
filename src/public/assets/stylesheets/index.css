@@ -1,38 +1,144 @@
-/* -------------------  MOBILE  --------------------- */
-
-body {
-  display: flex;
-  flex-direction: column;
-  font-family: Arial;
-  min-height: 100vh;
+/* -----------  MOBILE  ----------- */
+html {
+    font-size: 16px;
 }
 
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+.loader-image {
+    margin: 10% 0;
+}
+
+#root {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* ----------- HEADER ----------- */
 header {
-  /* header styles */
+    text-align: center;
+    padding-bottom: 20px;
+    font-family: 'Audiowide', cursive;
+    font-size: 1.75em;
+    color: brown;
 }
 
-main {
-  flex: 1;
-  padding: 20px;
+/* ----------- TAB MENU ----------- */
+.tab-menu li {
+    display: inline-block;
+    width: 33.3%;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
 }
+
+.tab-menu li:nth-child(2) {
+    border-left: 1px darkgray solid;
+    border-right: 1px darkgray solid;
+}
+
+.tab-menu li:hover {
+    background-color:  rgb(238, 238, 238);
+}
+
+.selected-rover {
+    background-color: rgb(238, 238, 238);
+}
+
+/* ----------- INFO SECTION ----------- */
+.info-content {
+    display: block;
+    height: 120px;
+    background-color: rgb(238, 238, 238);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.info-content ul {
+    padding: 10px 20px;
+}
+
+.info-content li {
+    width: 100%;
+    padding: 1% 0;
+}
+
+.info-content .info-title {
+    display: inline-block;
+    /* width: 35%; */
+    width: 120px;
+    color: brown;
+    font-weight: 500;
+}
+
+/* ----------- IMAGE SECTION ----------- */
+.image-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+section img {
+    width: 90%;
+    margin: 10px 5%;
+}
+
+/* ----------- FOOTER SECTION ----------- */
 
 footer {
-  /* footer styles */
+    display: block;
+    text-align: center;
+    padding-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
 
-/* -------------------  TABLET  --------------------- */
-@media (min-width: 768px) {
-  /* use mobile */
+/* -----------  TABLET  ----------- */
+@media (min-width: 481px) {
+    section img {
+        width: 45%;
+        float: left;
+        margin: 2.5%;
+    }
+
+    header {
+        font-size: 2.5em;
+    }
+
+    .info-content {
+        height: 100px;
+    }
+
+    .info-content li {
+        padding: 10px 0;
+        display: inline-block;
+        width: 50%;
+        float: left;
+    }
 }
 
-/* -------------------  DESKTOP  -------------------- */
+/* -----------  DESKTOP  ----------- */
+@media (min-width: 769px) {
+    section img {
+        width: 30%;
+        margin: 1.66%;
+    }
 
-@media (min-width: 1224px) {
-  /* use mobile */
-}
-
-/* -------------------  LARGE SCREENS  -------------- */
-
-@media (min-width: 1824px) {
-  /* use mobile */
+    .image-content {
+        padding-bottom: 20px;
+    }
 }

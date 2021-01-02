@@ -1,28 +1,40 @@
-require('dotenv').config()
-const express = require('express')
-const bodyParser = require('body-parser')
-const fetch = require('node-fetch')
-const path = require('path')
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
+const path = require('path');
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.use('/', express.static(path.join(__dirname, '../public')))
+app.use('/', express.static(path.join(__dirname, '../public')));
 
-// your API calls
+const NASA_API_ENDPOINT = 'https://api.nasa.gov';
+const NASA_API_KEY = process.env.NASA_API_KEY;
 
-// example API call
-app.get('/apod', async (req, res) => {
+app.get('/roverinfo/:rover', async (req, res) => {
     try {
-        let image = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}`)
-            .then(res => res.json())
-        res.send({ image })
+        let roverData = await fetch(`${NASA_API_ENDPOINT}/mars-photos/api/v1/rovers/${req.params.rover}?api_key=${NASA_API_KEY}`)
+            .then(resp => resp.json());
+        res.send({ roverData });
+        // res.send(roverInfoData);
     } catch (err) {
-        console.log('error:', err);
+        console.log('Error calling roverInfo endpoint:', err);
     }
-})
+});
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.get('/images/:rover', async (req, res) => {
+    try {
+        let images = await fetch(`${NASA_API_ENDPOINT}/mars-photos/api/v1/rovers/${req.params.rover}/latest_photos?api_key=${NASA_API_KEY}`)
+            .then(resp => resp.json());
+        res.send({ images });
+        // res.send(imageData);
+    } catch (err) {
+        console.log('Error calling images endpoint:', err);
+    }
+});
+
+app.listen(port, () => console.log(`Mars Dashboard app listening on port ${port}!`))
